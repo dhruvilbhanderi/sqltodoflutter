@@ -76,7 +76,7 @@ class _SqaddtaskState extends State<Sqaddtask> {
               child: DropdownButtonFormField<String>(
                 value: selectValues,
                 decoration: InputDecoration(
-                  hintText: 'Choose a category',
+                  hintText: 'Choose a categorys',
                   hintStyle: TextStyle(color: Colors.grey),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
