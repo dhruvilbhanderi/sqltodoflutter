@@ -190,7 +190,7 @@ class _SqtaskState extends State<Sqtask> {
           (EmptyTasks.isEmpty)
               ? Center(
                 child: Text(
-                  'No task available',
+                  'No task availables',
                   style: TextStyle(fontSize: 25, color: Colors.black),
                 ),
               )
