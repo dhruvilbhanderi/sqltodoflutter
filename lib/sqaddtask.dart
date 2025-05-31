@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
-class Sqaddtask extends StatefulWidget {
-  const Sqaddtask({super.key});
+class SqAddTask extends StatefulWidget {
+  const SqAddTask({super.key});
 
   @override
-  State<Sqaddtask> createState() => _SqaddtaskState();
+  State<SqAddTask> createState() => _SqAddTaskState();
 }
 
-class _SqaddtaskState extends State<Sqaddtask> {
+class _SqAddTaskState extends State<SqAddTask> {
   String selectValues = 'Personal';
   final TextEditingController _dateController =  TextEditingController();
-  final TextEditingController taskcontroller = TextEditingController();
+  final TextEditingController taskController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
   final List<String> categories = ['Personal', 'Work', 'Health', 'Family', 'Learning'];
   Future<void> _selectDate() async {
-    DateTime? _picked = await showDatePicker(context: context,
+    DateTime? picked = await showDatePicker(context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(2000),
         lastDate: DateTime(2100));
 
 
-    if (_picked != null)
+    if (picked != null)
     {
       // _dateController.text = _picked.toString().split(" ")[0];
-      _dateController.text = '${_picked.day}/${_picked.month}/${_picked.year}';
+      _dateController.text = '${picked.day}/${picked.month}/${picked.year}';
     }
   }
   Future<void> _selectTime() async {
-    TimeOfDay? pickedtime = await showTimePicker(context: context, initialTime: TimeOfDay.now(),initialEntryMode: TimePickerEntryMode.input);
-    if(pickedtime != null)
+    TimeOfDay? pickedTime = await showTimePicker(context: context, initialTime: TimeOfDay.now(),initialEntryMode: TimePickerEntryMode.input);
+    if(pickedTime != null)
     {
-      _timeController.text = '${pickedtime.hourOfPeriod} : ${pickedtime.minute} ${pickedtime.hour<12?'AM':'PM'}';
+      _timeController.text = '${pickedTime.hourOfPeriod} : ${pickedTime.minute} ${pickedTime.hour<12?'AM':'PM'}';
     }
   }
 
@@ -54,10 +54,10 @@ class _SqaddtaskState extends State<Sqaddtask> {
             SizedBox(height: 20,),
             Text('Add a task',style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
             SizedBox(height: 20,),
-            Container(
+            SizedBox(
               width: 300,
               child: TextField(
-                controller: taskcontroller,
+                controller: taskController,
                 decoration: InputDecoration(
                     hintText: 'Name your task',
                     hintStyle: TextStyle(color: Colors.grey[700]),
@@ -71,12 +71,12 @@ class _SqaddtaskState extends State<Sqaddtask> {
               ),
             ),
             SizedBox(height: 60,),
-            Container(
+            SizedBox(
               width: 300,
               child: DropdownButtonFormField<String>(
                 value: selectValues,
                 decoration: InputDecoration(
-                  hintText: 'Choose a categorys',
+                  hintText: 'Choose a category',
                   hintStyle: TextStyle(color: Colors.grey),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
@@ -140,7 +140,7 @@ class _SqaddtaskState extends State<Sqaddtask> {
               ),
             ),
             SizedBox(height: 60,),
-            Container(
+            SizedBox(
               width: 300,
               child: TextField(
                 controller: _dateController,
@@ -161,7 +161,7 @@ class _SqaddtaskState extends State<Sqaddtask> {
               ),
             ),
             SizedBox(height: 60,),
-            Container(
+            SizedBox(
               width: 300,
               child: TextField(
                 controller: _timeController,
@@ -184,14 +184,14 @@ class _SqaddtaskState extends State<Sqaddtask> {
             SizedBox(height: 180,),
             ElevatedButton(onPressed: (){
               Navigator.pop(context, {
-                'title': taskcontroller.text,
+                'title': taskController.text,
                 'category': selectValues,
                 'dueDate': _dateController.text,
-                'timeclock':_timeController.text,
+                'timeClock':_timeController.text,
               });
-            }, child:Text('Save',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18),),style: ElevatedButton.styleFrom(
+            },style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: 10,horizontal: 150),
-                backgroundColor: Colors.black),),
+                backgroundColor: Colors.black), child:Text('Save',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18),),),
           ],
         ),
       ),
