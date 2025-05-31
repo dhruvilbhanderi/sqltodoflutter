@@ -8,7 +8,7 @@ class Task {
   String title;
   String category;
   String dueDate;
-  String timeclock;
+  String timeClock;
   bool isCompleted;
 
   Task({
@@ -16,7 +16,7 @@ class Task {
     required this.title,
     required this.category,
     required this.dueDate,
-    required this.timeclock,
+    required this.timeClock,
     this.isCompleted = false,
   });
 
@@ -26,7 +26,7 @@ class Task {
       'title': title,
       'category': category,
       'dueDate': dueDate,
-      'timeclock': timeclock,
+      'timeClock': timeClock,
       'isCompleted': isCompleted ? 1 : 0,
     };
   }
@@ -37,22 +37,22 @@ class Task {
       title: map['title'],
       category: map['category'],
       dueDate: map['dueDate'],
-      timeclock: map['timeclock'],
+      timeClock: map['timeClock'],
       isCompleted: map['isCompleted'] == 1,
     );
   }
 }
-class Sqtask extends StatefulWidget {
-  const Sqtask({super.key});
+class SqTask extends StatefulWidget {
+  const SqTask({super.key});
 
   @override
-  State<Sqtask> createState() => _SqtaskState();
+  State<SqTask> createState() => _SqTaskState();
 }
 
-class _SqtaskState extends State<Sqtask> {
+class _SqTaskState extends State<SqTask> {
   List<Task> tasks = [];
-  int _IndexItem = 0;
-  var selectdate = DateTime.now();
+  int indexItem = 0;
+  var selectDate = DateTime.now();
 
   @override
   void initState() {
@@ -81,7 +81,7 @@ class _SqtaskState extends State<Sqtask> {
   }
 
   List<Task> emTpyTasks() {
-    switch (_IndexItem) {
+    switch (indexItem) {
       case 1:
         return tasks.where((task) => !task.isCompleted).toList();
 
@@ -94,7 +94,7 @@ class _SqtaskState extends State<Sqtask> {
   }
 
   String appBarTitle() {
-    switch (_IndexItem) {
+    switch (indexItem) {
       case 1:
         return 'Pending';
 
@@ -107,7 +107,7 @@ class _SqtaskState extends State<Sqtask> {
   }
 
   IconButton taskButtonTor() {
-    switch (_IndexItem) {
+    switch (indexItem) {
       case 1:
         return IconButton(
           icon: Icon(Icons.timer_outlined),
@@ -127,7 +127,7 @@ class _SqtaskState extends State<Sqtask> {
           onPressed: () async {
             final newTask = await Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Sqaddtask()),
+              MaterialPageRoute(builder: (context) => SqAddTask()),
             );
             if (newTask != null) {
               await _addTask(
@@ -135,7 +135,7 @@ class _SqtaskState extends State<Sqtask> {
                   title: newTask['title'],
                   category: newTask['category'],
                   dueDate: newTask['dueDate'],
-                  timeclock: newTask['timeclock'],
+                  timeClock: newTask['timeClock'],
                 ),
               );
             }
@@ -145,7 +145,7 @@ class _SqtaskState extends State<Sqtask> {
   }
 
   Color addColor() {
-    switch (_IndexItem) {
+    switch (indexItem) {
       case 1:
         return Colors.redAccent;
       case 2:
@@ -158,7 +158,7 @@ class _SqtaskState extends State<Sqtask> {
 
   @override
   Widget build(BuildContext context) {
-    List<Task> EmptyTasks = emTpyTasks();
+    List<Task> emptyTasks = emTpyTasks();
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -171,7 +171,7 @@ class _SqtaskState extends State<Sqtask> {
             Row(
               children: [
                 Text(
-                  '    ${DateFormat('MMMM, d').format(selectdate)}',
+                  '    ${DateFormat('MMMM, d').format(selectDate)}',
                   style: TextStyle(fontSize: 12, color: Colors.grey[700]),
                 ),
               ],
@@ -187,17 +187,17 @@ class _SqtaskState extends State<Sqtask> {
         ],
       ),
       body:
-          (EmptyTasks.isEmpty)
+          (emptyTasks.isEmpty)
               ? Center(
                 child: Text(
-                  'No task availables',
+                  'No task available',
                   style: TextStyle(fontSize: 25, color: Colors.black),
                 ),
               )
               : ListView.builder(
-                itemCount: EmptyTasks.length,
+                itemCount: emptyTasks.length,
                 itemBuilder: (context, index) {
-                  final task = EmptyTasks[index];
+                  final task = emptyTasks[index];
                   TextEditingController demo = TextEditingController(text: task.title);
                   return ListTile(
                     title: Text(
@@ -211,7 +211,7 @@ class _SqtaskState extends State<Sqtask> {
                       ),
                     ),
                     subtitle: Text(
-                      '${task.category} - ${task.dueDate} - ${task.timeclock}',
+                      '${task.category} - ${task.dueDate} - ${task.timeClock}',
                       style: TextStyle(
                         decoration:
                             task.isCompleted
@@ -236,43 +236,41 @@ class _SqtaskState extends State<Sqtask> {
                           IconButton(onPressed: () {
                             showModalBottomSheet(context: context,
                                 builder: (context) {
-                                  return Container(
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text('Edit Task', style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold),),
-                                          ],
-                                        ),
-                                        SizedBox(height: 100,),
-                                        SizedBox(
-                                          width: 300,
-                                          child: TextField(
-                                            controller: demo,
-                                            decoration: InputDecoration(
-                                                hintText:'task',
-                                                border: OutlineInputBorder(
-                                                  borderSide:BorderSide(color: Colors.grey),
-                                                )
-                                            ),
+                                  return Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text('Edit Task', style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),),
+                                        ],
+                                      ),
+                                      SizedBox(height: 100,),
+                                      SizedBox(
+                                        width: 300,
+                                        child: TextField(
+                                          controller: demo,
+                                          decoration: InputDecoration(
+                                              hintText:'task',
+                                              border: OutlineInputBorder(
+                                                borderSide:BorderSide(color: Colors.grey),
+                                              )
                                           ),
                                         ),
-                                        SizedBox(height: 100,),
-                                        ElevatedButton(onPressed: (){
-                                          setState(() {
-                                            task.title = demo.text;
-                                          });
-                                          _updateTask(task);
-                                          Navigator.pop(context, {});
+                                      ),
+                                      SizedBox(height: 100,),
+                                      ElevatedButton(onPressed: (){
+                                        setState(() {
+                                          task.title = demo.text;
+                                        });
+                                        _updateTask(task);
+                                        Navigator.pop(context, {});
 
-                                        },style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.symmetric(vertical: 10,horizontal: 100),
-                                            backgroundColor: Colors.black), child:Text('Save',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18),),),
-                                      ],
-                                    ),
+                                      },style: ElevatedButton.styleFrom(
+                                          padding: EdgeInsets.symmetric(vertical: 10,horizontal: 100),
+                                          backgroundColor: Colors.black), child:Text('Save',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18),),),
+                                    ],
                                   );
                                 });
                           }, icon: Icon(Icons.edit)),
@@ -351,15 +349,14 @@ class _SqtaskState extends State<Sqtask> {
                 TextButton(
                   onPressed: () {
                     setState(() {
-                      _IndexItem = 0;
+                      indexItem = 0;
                     });
                   },
-                  child: Text('All'),
                   style: TextButton.styleFrom(
                     foregroundColor:
-                        _IndexItem == 0 ? Colors.white : Colors.black,
+                    indexItem == 0 ? Colors.white : Colors.black,
                     backgroundColor:
-                        _IndexItem == 0 ? Colors.black : Colors.white,
+                    indexItem == 0 ? Colors.black : Colors.white,
                     padding: EdgeInsets.fromLTRB(40, 8, 40, 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
@@ -367,19 +364,19 @@ class _SqtaskState extends State<Sqtask> {
                       ), // Rounded corners
                     ),
                   ),
+                  child: Text('All'),
                 ),
                 TextButton(
                   onPressed: () {
                     setState(() {
-                      _IndexItem = 1;
+                      indexItem = 1;
                     });
                   },
-                  child: Text('Pending'),
                   style: TextButton.styleFrom(
                     foregroundColor:
-                        _IndexItem == 1 ? Colors.white : Colors.black,
+                    indexItem == 1 ? Colors.white : Colors.black,
                     backgroundColor:
-                        _IndexItem == 1 ? Colors.black : Colors.white,
+                    indexItem== 1 ? Colors.black : Colors.white,
                     padding: EdgeInsets.fromLTRB(25, 8, 25, 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
@@ -387,19 +384,19 @@ class _SqtaskState extends State<Sqtask> {
                       ), // Rounded corners
                     ),
                   ),
+                  child: Text('Pending'),
                 ),
                 TextButton(
                   onPressed: () {
                     setState(() {
-                      _IndexItem = 2;
+                      indexItem = 2;
                     });
                   },
-                  child: Text('Completed'),
                   style: TextButton.styleFrom(
                     foregroundColor:
-                        _IndexItem == 2 ? Colors.white : Colors.black,
+                    indexItem== 2 ? Colors.white : Colors.black,
                     backgroundColor:
-                        _IndexItem == 2 ? Colors.black : Colors.white,
+                    indexItem == 2 ? Colors.black : Colors.white,
                     padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
@@ -407,6 +404,7 @@ class _SqtaskState extends State<Sqtask> {
                       ), // Rounded corners
                     ),
                   ),
+                  child: Text('Completed'),
                 ),
               ],
             ),
