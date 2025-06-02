@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
-class SqAddTask extends StatefulWidget {
-  const SqAddTask({super.key});
+class Sqaddtask extends StatefulWidget {
+  const Sqaddtask({super.key});
 
   @override
-  State<SqAddTask> createState() => _SqAddTaskState();
+  State<Sqaddtask> createState() => _SqaddtaskState();
 }
 
-class _SqAddTaskState extends State<SqAddTask> {
+class _SqaddtaskState extends State<Sqaddtask> {
   String selectValues = 'Personal';
   final TextEditingController _dateController =  TextEditingController();
-  final TextEditingController taskController = TextEditingController();
+  final TextEditingController taskcontroller = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
   final List<String> categories = ['Personal', 'Work', 'Health', 'Family', 'Learning'];
   Future<void> _selectDate() async {
-    DateTime? picked = await showDatePicker(context: context,
+    DateTime? _picked = await showDatePicker(context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(2000),
         lastDate: DateTime(2100));
 
 
-    if (picked != null)
+    if (_picked != null)
     {
       // _dateController.text = _picked.toString().split(" ")[0];
-      _dateController.text = '${picked.day}/${picked.month}/${picked.year}';
+      _dateController.text = '${_picked.day}/${_picked.month}/${_picked.year}';
     }
   }
   Future<void> _selectTime() async {
-    TimeOfDay? pickedTime = await showTimePicker(context: context, initialTime: TimeOfDay.now(),initialEntryMode: TimePickerEntryMode.input);
-    if(pickedTime != null)
+    TimeOfDay? pickedtime = await showTimePicker(context: context, initialTime: TimeOfDay.now(),initialEntryMode: TimePickerEntryMode.input);
+    if(pickedtime != null)
     {
-      _timeController.text = '${pickedTime.hourOfPeriod} : ${pickedTime.minute} ${pickedTime.hour<12?'AM':'PM'}';
+      _timeController.text = '${pickedtime.hourOfPeriod} : ${pickedtime.minute} ${pickedtime.hour<12?'AM':'PM'}';
     }
   }
 
@@ -54,10 +54,10 @@ class _SqAddTaskState extends State<SqAddTask> {
             SizedBox(height: 20,),
             Text('Add a task',style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
             SizedBox(height: 20,),
-            SizedBox(
+            Container(
               width: 300,
               child: TextField(
-                controller: taskController,
+                controller: taskcontroller,
                 decoration: InputDecoration(
                     hintText: 'Name your task',
                     hintStyle: TextStyle(color: Colors.grey[700]),
@@ -71,7 +71,7 @@ class _SqAddTaskState extends State<SqAddTask> {
               ),
             ),
             SizedBox(height: 60,),
-            SizedBox(
+            Container(
               width: 300,
               child: DropdownButtonFormField<String>(
                 value: selectValues,
@@ -140,7 +140,7 @@ class _SqAddTaskState extends State<SqAddTask> {
               ),
             ),
             SizedBox(height: 60,),
-            SizedBox(
+            Container(
               width: 300,
               child: TextField(
                 controller: _dateController,
@@ -161,7 +161,7 @@ class _SqAddTaskState extends State<SqAddTask> {
               ),
             ),
             SizedBox(height: 60,),
-            SizedBox(
+            Container(
               width: 300,
               child: TextField(
                 controller: _timeController,
@@ -184,14 +184,14 @@ class _SqAddTaskState extends State<SqAddTask> {
             SizedBox(height: 180,),
             ElevatedButton(onPressed: (){
               Navigator.pop(context, {
-                'title': taskController.text,
+                'title': taskcontroller.text,
                 'category': selectValues,
                 'dueDate': _dateController.text,
-                'timeClock':_timeController.text,
+                'timeclock':_timeController.text,
               });
-            },style: ElevatedButton.styleFrom(
+            }, child:Text('Save',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18),),style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: 10,horizontal: 150),
-                backgroundColor: Colors.black), child:Text('Save',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18),),),
+                backgroundColor: Colors.black),),
           ],
         ),
       ),
