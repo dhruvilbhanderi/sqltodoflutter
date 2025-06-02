@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:sqltodoflutter/sqtask.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => SqTask()),
+        MaterialPageRoute(builder: (context) => Sqtask()),
       );
     });
   }
